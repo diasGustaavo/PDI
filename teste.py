@@ -36,20 +36,49 @@ def convertToRGBUpdate(rgbImage):
     rgbImage = rgbImage.astype(int)
     return(rgbImage)
 
+def negativeRGB(rgbImage):
+    for i in range(len(rgbImage)):
+        for j in range(len(rgbImage[0])):
+            #print(rgbImage[i][j])
+            R = (-rgbImage[i][j][0] + 255)
+            G = (-rgbImage[i][j][1] + 255)
+            B = (-rgbImage[i][j][2] + 255)
+            rgbImage[i][j] = [R, G, B, 255]
+            #print(rgbImage[i][j])
+            #print("cut")
+    return(rgbImage)
+
+def negativeYIQ(rgbImage):
+    for i in range(len(rgbImage)):
+        for j in range(len(rgbImage[0])):
+            #print(rgbImage[i][j])
+            Y = (-rgbImage[i][j][0] + 255)
+            I = (rgbImage[i][j][1])
+            Q = (rgbImage[i][j][2])
+            rgbImage[i][j] = [Y, I, Q, 255]
+            #print(rgbImage[i][j])
+            #print("cut")
+    # rgbImage = rgbImage.astype(int)
+    return(rgbImage)
+
 image = io.imread(dirAtual + '/Imagens/Woman.png')
 # plt.imshow(image)
 # plt.show()
 
-print(image)
-print(f'-----------EM YIQ----------\n')
+# print(image)
+# print(f'-----------EM YIQ----------\n')
 atualizadaYIQ = convertToYIQUpdate(image)
-print(atualizadaYIQ)
+# print(atualizadaYIQ)
 
-print(f'-----------EM RGB----------\n')
+# print(f'-----------EM RGB----------\n')
+# atualizadaRGB = convertToRGBUpdate(atualizadaYIQ)
+# print(atualizadaRGB)
+
+
+image2 = negativeYIQ(atualizadaYIQ)
+
 atualizadaRGB = convertToRGBUpdate(atualizadaYIQ)
-print(atualizadaRGB)
 
-image2 = cv.cvtColor(image, cv.COLOR_BGR2RGB)
-# plt.imshow(image2)
-# plt.show()
+plt.imshow(atualizadaRGB)
+plt.show()
 # image2
